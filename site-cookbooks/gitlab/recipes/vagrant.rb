@@ -197,7 +197,7 @@ end
 %w{ development test }.each do |env|
   # Setup database
   execute "gitlab-#{env}-setup" do
-    command "su -l -c 'cd #{node['gitlab']['app_home']} && bundle exec rake db:setup RAILS_ENV=#{env}' vagrant"
+    command "su -l -c 'cd #{node['gitlab']['app_home']} && bundle exec rake db:migrate RAILS_ENV=#{env}' vagrant"
     cwd node['gitlab']['app_home']
     user 'root'
     not_if { File.exists?("#{node['gitlab']['home']}/.vagrant_seed") }
